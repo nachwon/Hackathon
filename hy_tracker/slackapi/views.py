@@ -5,10 +5,14 @@ import time
 from django.shortcuts import render
 import json
 
+from django.views.decorators.csrf import csrf_exempt
+
 from slackapi.crawler import stats_crawler
 
 key = '032E05FE0635F1828FC936595667CABA'
 steam_id = '76561198005689159'
+slack_key = '9NmRQykyNVGdClzwIcfHaY72'
+slack_url = f'https://hooks.slack.com/services/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'
 
 
 def steamapi_status(key, steam_id):
@@ -33,7 +37,6 @@ def slackapi_post(api_url, message):
 def loop(count):
     log_in = 0
     game_in = 0
-    slack_url = 'https://hooks.slack.com/services/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'
     login_time = None
     logout_time = None
     game_name = ''
@@ -95,3 +98,11 @@ def index(request):
 def stats(request):
     context = stats_crawler('kkoksara')
     return render(request, 'stats.html', context)
+
+
+@csrf_exempt
+def current_players(request):
+    if request.method == 'POST':
+
+        message = f'현재 플레이어 목록'
+        slackapi_post(slack_url, message)

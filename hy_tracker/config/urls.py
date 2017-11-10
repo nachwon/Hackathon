@@ -16,10 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from slackapi.views import index, stats
+from slackapi.views import index, stats, current_players
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name='index'),
     url(r'^stats/$', stats, name='stats'),
+    url(r'^players/$', current_players, name='current_players'),
 ]
