@@ -52,7 +52,7 @@ body.register {
 
 .stats-btn1 {
     margin-top: 25px;
-    margin-left: 60px;
+    margin-left: 45px;
     background-color: transparent;
     border: 3px solid white;
     color: white;
@@ -61,6 +61,7 @@ body.register {
     border-radius: 15px;
     padding: 10px;
     transition-duration: 0.5s;
+    width: 195px;
 }
 .stats-btn2 {
     margin-top: 25px;
