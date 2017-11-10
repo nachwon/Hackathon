@@ -4,6 +4,8 @@ import time
 from django.shortcuts import render
 import json
 
+from slackapi.crawler import stats_crawler
+
 key = '032E05FE0635F1828FC936595667CABA'
 steam_id = '76561198005689159'
 
@@ -51,4 +53,5 @@ def index(request):
 
 
 def stats(request):
-    return render(request, 'stats.html')
+    context = stats_crawler('kkoksara')
+    return render(request, 'stats.html', context)

@@ -1,0 +1,61 @@
+body {
+    background-image: url('https://d1wfiv6sf8d64f.cloudfront.net/static/pc/img/visual_main.jpg');
+}
+
+.container {
+    margin-top: 100px;
+}
+
+.header {
+    height: 100%;
+    width: 500px;
+    margin: 0 auto;
+}
+
+.tracker-title {
+    height: 90px;
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.tracker-version {
+    text-align: center;
+    margin-top: 15px;
+    color: white;
+}
+
+.stats-btn {
+    margin-top: 25px;
+}
+
+.body {
+    height: 100%;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.form-btn {
+    width: 112px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.spinner {
+    margin: 0 auto;
+}
+
+.features {
+    width: 120px;
+    margin: 0 auto;
+}
+
+.logo {
+    height: 100%;
+    width: 180px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+
+

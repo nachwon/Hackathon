@@ -21,5 +21,5 @@ from slackapi.views import index, stats
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name='index'),
-    url(r'^stats/$', stats, name='stats')
+    url(r'^stats/$', stats, name='stats'),
 ]

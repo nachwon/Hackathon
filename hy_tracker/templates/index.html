@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,79 +7,84 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="{% static 'favicon.jpg' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'index.css' %}">
     <style>
-.switch {
+        .spinner {
+  width: 40px;
+  height: 40px;
+
   position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
+  margin: 30px auto;
 }
 
-.switch input {display:none;}
-
-.slider {
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #333;
+  opacity: 0.6;
   position: absolute;
-  cursor: pointer;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+
+  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+  animation: sk-bounce 2.0s infinite ease-in-out;
 }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+.double-bounce2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
 }
 
-input:checked + .slider {
-  background-color: #2196F3;
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+@keyframes sk-bounce {
+  0%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
 }
+    </style>
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-</style>
-    <title>HY_Tracker</title>
+    <title>Watching You</title>
 </head>
 <body>
 
-<h1>HY_Tracker</h1>
+<div class="container">
+    <div class="header">
+        <img class="tracker-title" src="{% static 'Logomakr_1Ftq1r.png' %}" alt="">
+    </div>
+    <div class="body">
+        <p class="tracker-version">HY_Tracker Version 1.0.1</p>
+        <div class="spinner" id="tracking-image" style="display: none">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+        <form action="" method="post" class="form-btn">
+            {% csrf_token %}
+            <input type="hidden" name="switch" value="on">
+            <input class="btn btn-primary" type="submit" value="Start Tracking" onclick="document.getElementById('tracking-image').style='display: block'">
+        </form>
+    </div>
 
-<form action="" method="post">
-    {% csrf_token %}
-<label class="switch">
-    <input type="checkbox" name="switch" value="on">
-    <span class="slider round"></span>
-</label>
-<input type="submit">
-</form>
 
-<a href="{% url 'stats' %}">강사님 전적보기</a>
 
+    <div class="features">
+        <a href="{% url 'stats' %}">
+            <button class="stats-btn btn btn-default">강사님 전적보기</button>
+        </a>
+    </div>
+    <div class="logo">
+        <img class="pubg-title" src="https://btlog.me/public/img/pubg_title.png">
+    </div>
+</div>
 </body>
 </html>
