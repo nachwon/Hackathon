@@ -70,21 +70,11 @@ input:checked + .slider:before {
 
 <form action="" method="post">
     {% csrf_token %}
-    <label for="button1">slack</label>
-    <input type="radio" id="button1" name="status" value="1">
-    <label for="button2">steam</label>
-    <input type="radio" id="button2" name="status" value="2">
-    <input type="submit">
-</form>
-
-<form action="" method="post">
-    {% csrf_token %}
 <label class="switch">
     <input type="checkbox" name="switch" value="on">
-    <span class="slider"></span>
+    <span class="slider round"></span>
 </label>
-    <input type="submit">
-
+<input type="submit">
 </form>
 
 </body>
