@@ -32,18 +32,4 @@ def stats_crawler(username):
         "mode": mode_data,
         "damage": damage_data,
     }
-    try:
-        user = UserInfo.objects.get(name='이한영')
-    except:
-        return None
-    user_recent_data = user.record.last()
-    if not user_recent_data or user_recent_data.rating != stat_dict['rating']:
-        UserRecord.objects.create(
-            userinfo=user,
-            rank=stat_dict['rank'],
-            rating=stat_dict['rating'],
-            kill=stat_dict['kill'],
-            mode=stat_dict['mode'],
-            damage=stat_dict['damage'])
-
     return stat_dict

@@ -1,5 +1,10 @@
-body {
+body.index {
     background-image: url('https://d1wfiv6sf8d64f.cloudfront.net/static/pc/img/visual_main.jpg');
+}
+
+body.register {
+    background-image: url('https://gameplay.tips/uploads/posts/2017-04/1491328715_playerunknowns-battlegrounds.jpg');
+    background-size: cover;
 }
 
 .container {
@@ -25,8 +30,13 @@ body {
     color: white;
 }
 
-.stats-btn {
+.stats-btn1 {
     margin-top: 25px;
+    margin-left: 80px;
+}
+.stats-btn2 {
+    margin-top: 25px;
+    margin-left: 70px;
 }
 
 .body {
@@ -46,7 +56,7 @@ body {
 }
 
 .features {
-    width: 120px;
+    width: 275px;
     margin: 0 auto;
 }
 
@@ -59,3 +69,67 @@ body {
 
 
 
+/* register.html */
+
+.input {
+    padding: 10px;
+    border-radius: 6px;
+    width: 222px;
+    margin: 10px auto;
+    display: inherit;
+}
+
+.register-form {
+    margin-top: 80px;
+    position: absolute;
+    left: 536px;
+}
+
+.register-wrapper {
+    width: 350px;
+    height: 350px;
+    margin: 10px auto;
+    background: black;
+    opacity: 0.6;
+    border-radius: 10px;
+    position: absolute;
+    left: 472px;
+    top: 60px;
+}
+
+.register-btn {
+    display: block;
+    margin: 0 auto;
+    margin-top: 30px;
+    width: 98px;
+}
+
+.get-steamId {
+    display: inherit;
+    text-align: center;
+    color: white;
+    transition-duration: 0.5s;
+    
+}
+
+.get-steamId:hover {
+    color: rgb(96, 156, 184);
+    transition-duration: 0.5s;
+    text-decoration: none;
+}
+
+.register-title {
+    position: absolute;
+    top: 111px;
+    left: 529px;
+    font-size: 30px;
+    font-weight: bolder;
+    color: white;
+}
+
+/* stats.html */
+
+body.stats {
+    background-image: url('https://d1wfiv6sf8d64f.cloudfront.net/static/pc/img/backgroundart.jpg');
+    background-size: cover;
+}

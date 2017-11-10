@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,27 +7,23 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'index.css' %}">
     <title>Document</title>
 </head>
-<body>
+<body class="stats">
 <div>
     <h1>강사님 최근 전적</h1>
-    <table>
-        <tr>
-            <th>모드</th>
-            <th>랭킹</th>
-            <th>레이팅</th>
-            <th>킬</th>
-            <th>딜량</th>
-        </tr>
-        <tr>
-            <td>{{ mode }}</td>
-            <td>{{ rank }}</td>
-            <td>{{ rating }}</td>
-            <td>{{ kill }}</td>
-            <td>{{ damage }}</td>
-        </tr>
-    </table>
+
+    <div class="stat-body">
+        <ul>
+            <li>게임 모드 <span>{{ mode }}</span></li>
+            <li>랭킹 <span>{{ rank }}</span></li>
+            <li>레이팅 <span>{{ rating }}</span></li>
+            <li>킬 <span>{{ kill }}</span></li>
+            <li>딜량 <span>{{ damage }}</span></li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>
