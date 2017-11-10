@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from slackapi.crawler import stats_crawler
 from slackapi.forms import UserInfoForm
-from slackapi.models import UserInfo
+from slackapi.models import UserInfo, UserRecord
 
 key = '032E05FE0635F1828FC936595667CABA'
 steam_id = '76561198005689159'
@@ -35,6 +35,22 @@ def steamapi_status(key, steam_id):
 def slackapi_post(api_url, message):
     message = {"text": message}
     requests.post(api_url, json.dumps(message), headers={'Content-Type': 'application/json'})
+
+
+def get_lhy_data(username, context):
+    try:
+        user = UserInfo.objects.get(name=username)
+    except:
+        return None
+    user_recent_data = user.record.last()
+    if not user_recent_data or user_recent_data.rating != context['rating']:
+        UserRecord.objects.create(
+            userinfo=user,
+            rank=context['rank'],
+            rating=context['rating'],
+            kill=context['kill'],
+            mode=context['mode'],
+            damage=context['damage'])
 
 
 def loop(count):
@@ -99,7 +115,9 @@ def index(request):
 
 
 def stats(request):
-    context = stats_crawler('kkoksara')
+    username = 'chetrucci'
+    context = stats_crawler(username)
+    get_lhy_data('이한영', context)
     return render(request, 'stats.html', context)
 
 
@@ -133,3 +151,6 @@ def who_is_online(request):
 
     if request.method == 'GET':
         return HttpResponse('<h1>404: 잘못된 요청</h1>')
+
+
+

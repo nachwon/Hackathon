@@ -26,10 +26,10 @@ def stats_crawler(username):
     damage_data = table_head[5].text
 
     stat_dict = {
-        "rank": rank_data,
-        "rating": rating_data,
-        "kill": kill_data,
+        "rank": int(rank_data),
+        "rating": int(rating_data),
+        "kill": int(kill_data),
         "mode": mode_data,
-        "damage": damage_data,
+        "damage": float(damage_data),
     }
     return stat_dict

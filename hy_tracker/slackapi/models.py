@@ -12,7 +12,9 @@ class UserInfo(models.Model):
 class UserRecord(models.Model):
     userinfo = models.ForeignKey(UserInfo, on_delete=models.CASCADE, related_name='record')
     rank = models.PositiveIntegerField()
-    rating = models.FloatField()
+    rating = models.IntegerField()
     kill = models.PositiveIntegerField()
     mode = models.CharField(max_length=5)
     damage = models.FloatField()
+
+
