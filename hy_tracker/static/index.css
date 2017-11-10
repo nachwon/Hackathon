@@ -30,13 +30,57 @@ body.register {
     color: white;
 }
 
+.tracker-btn {
+    background-color: #bb0000;
+    font-size: 31px;
+    font-weight: bolder;
+    padding: 10px;
+    border-radius: 35px;
+    width: 65px;
+    color: #bb0000;
+    margin: 0 auto;
+    display: block;
+    transition-duration: 0.5s;
+}
+
+.tracker-btn:hover {
+    color: #fff;
+    background-color: #c30000;
+    width: 238px;
+    transition-duration: 0.5s;
+}
+
 .stats-btn1 {
     margin-top: 25px;
-    margin-left: 80px;
+    margin-left: 60px;
+    background-color: transparent;
+    border: 3px solid white;
+    color: white;
+    font-weight: bolder;
+    font-size: 20px;
+    border-radius: 15px;
+    padding: 10px;
+    transition-duration: 0.5s;
 }
 .stats-btn2 {
     margin-top: 25px;
-    margin-left: 70px;
+    margin-left: 45px;
+    background-color: transparent;
+    border: 3px solid white;
+    color: white;
+    font-weight: bolder;
+    font-size: 20px;
+    border-radius: 15px;
+    padding: 10px;
+    transition-duration: 0.5s;
+}
+
+.stats-btn1:hover {
+    transition-duration: 0.5s;
+}
+
+.stats-btn2:hover {
+    transition-duration: 0.5s;
 }
 
 .body {
@@ -46,7 +90,7 @@ body.register {
 }
 
 .form-btn {
-    width: 112px;
+    width: 250px;
     margin: 0 auto;
     margin-top: 50px;
 }
@@ -62,9 +106,17 @@ body.register {
 
 .logo {
     height: 100%;
-    width: 180px;
+    width: 542px;
     margin: 0 auto;
     margin-top: 30px;
+}
+
+.steam-logo {
+    width: 200px;
+}
+
+.slack-logo {
+    width: 154px;
 }
 
 
@@ -133,3 +185,42 @@ body.stats {
     background-image: url('https://d1wfiv6sf8d64f.cloudfront.net/static/pc/img/backgroundart.jpg');
     background-size: cover;
 }
+
+.stats-wrapper {
+    margin-top: 70px;
+    margin-left: 22px;
+}
+
+.stats-title {
+    color: white;
+    font-size: 72px;
+    margin-bottom: 63px;
+}
+
+.stat-body ul {
+    color: white;
+    list-style: none;
+    font-size: 40px;
+    margin-left: 28px;
+    
+}
+
+.stat-body span {
+    float: right;
+    color: rgb(255, 187, 0);
+    transition-duration: 2.5s;
+}
+
+.stat-body span:hover {
+    float: right;
+    color: rgb(126, 255, 223);
+    transition-duration: 0.5s;
+}
+
+.stat-body li {
+    width: 200px;
+    width: 443px;
+    border-bottom: 1px solid #5d5d5d;
+    margin-bottom: 26px;
+}
+
