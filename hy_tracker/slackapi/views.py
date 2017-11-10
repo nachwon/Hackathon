@@ -1,3 +1,4 @@
+import datetime
 import requests
 import time
 
@@ -26,17 +27,36 @@ def slackapi_post(api_url, message):
 def loop(count):
     log_in = 0
     slack_url = 'https://hooks.slack.com/services/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'
+    login_time = None
+    logout_time = None
     while count == 0:
         hy_status = steamapi_status(key, steam_id)
         if hy_status == 1:
             if log_in == 0:
                 print(hy_status)
+                login_time = datetime.datetime.now()
                 message = "이한영 강사님 배틀그라운드 접속"
                 slackapi_post(slack_url, message)
                 log_in = 1
         elif hy_status == 0:
             if log_in == 1:
-                message = "이한영 강사님 배틀그라운드 접속 종료"
+                logout_time = datetime.datetime.now()
+                time_difference = logout_time - login_time
+                play_time = time_difference.seconds
+
+                play_hour = 0
+                play_min = 0
+                while play_time > 3600:
+                    play_hour = play_time // 2
+                    play_time -= play_hour * 3600
+                play_min = play_time // 60
+
+                if play_hour != 0:
+                    play_time_message = f'플레이타임: {play_hour}시간 {play_min}분'
+                else:
+                    play_time_message = f'플레이타임: {play_min}분'
+
+                message = "이한영 강사님 배틀그라운드 접속 종료\n" + play_time_message
                 slackapi_post(slack_url, message)
                 log_in = 0
         time.sleep(5)

@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import re
-
+from .models import UserRecord
 
 def stats_crawler(username):
     p = re.compile(r'\d+')
@@ -31,5 +31,15 @@ def stats_crawler(username):
         "mode": mode_data,
         "damage": damage_data,
     }
+
+    recent_data = UserRecord.objects.filter(name__contains=username)
+    if not recent_data or (recent_data.last() and recent_data.rating != stat_dict['rating']):
+        UserRecord.objects.create(
+            name=username,
+            rank=stat_dict['rank'],
+            rating=stat_dict['rating'],
+            kill=stat_dict['kill'],
+            mode=stat_dict['mode'],
+            damage=stat_dict['damage'])
 
     return stat_dict
