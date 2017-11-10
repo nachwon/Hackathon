@@ -25,24 +25,27 @@ def slackapi_post(api_url, message):
 
 
 def loop(count):
+    log_in = 0
+    slack_url = 'https://hooks.slack.com/services/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'
     while count == 0:
         hy_status = steamapi_status(key, steam_id)
         if hy_status == 1:
-            print(hy_status)
-            message = "이한영 강사님 배틀그라운드 접속"
-            slack_url = 'https://hooks.slack.com/services/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'
-            slackapi_post(slack_url, message)
-            print(count)
-        else:
-            print(hy_status)
+            if log_in == 0:
+                print(hy_status)
+                message = "이한영 강사님 배틀그라운드 접속"
+                slackapi_post(slack_url, message)
+                log_in = 1
+        elif hy_status == 0:
+            if log_in == 1:
+                message = "이한영 강사님 배틀그라운드 접속 종료"
+                slackapi_post(slack_url, message)
+                log_in = 0
         time.sleep(5)
 
 
 def index(request):
     if request.method == 'POST':
         switch = request.POST.get('switch')
-        print(switch)
-
         if switch == 'on':
             loop(0)
     else:
@@ -50,5 +53,5 @@ def index(request):
     return render(request, 'index.html')
 
 
-
-
+def stats(request):
+    return render(request, 'stats.html')
