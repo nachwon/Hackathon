@@ -45,9 +45,14 @@ body.register {
 
 .tracker-btn:hover {
     color: #fff;
-    background-color: #c30000;
+    background-color: #bb0000;
     width: 238px;
     transition-duration: 0.5s;
+}
+
+.tracker-btn:focus {
+    color: #bb0000;
+    outline: none;
 }
 
 .stats-btn1 {

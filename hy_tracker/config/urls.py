@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from slackapi.views import index, stats, register, who_is_online
+from slackapi.views import index, stats, register, who_is_online, progress
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^stats/$', stats, name='stats'),
     url(r'^register/$', register, name='register'),
     url(r'^online/$', who_is_online, name='who-is-online'),
+    url(r'^progress/$', progress, name='progress'),
 ]

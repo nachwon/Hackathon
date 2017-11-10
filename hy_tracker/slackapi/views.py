@@ -53,6 +53,13 @@ def get_lhy_data(username, context):
             damage=context['damage'])
 
 
+def record_evaluate(context):
+    score = 0
+    score += context['kill'] * 20
+    score = context['damage']
+    return score
+
+
 def loop(count):
     log_in = 0
     game_in = 0
@@ -67,16 +74,16 @@ def loop(count):
             if log_in == 0:
                 print(hy_status)
                 login_time = datetime.datetime.now()
-                message = "이한영 강사님 스팀 접속"
+                message = "이한영 강사님께서 스팀에 접속하셨습니다."
                 slackapi_post(slack_url, message)
                 log_in = 1
             if hy_game is not None and game_in == 0:
-                message = f'이한영 강사님 {hy_game} 시작'
+                message = f'이한영 강사님께서 {hy_game}를 시작하셨습니다.'
                 slackapi_post(slack_url, message)
                 game_name = hy_game
                 game_in = 1
             if hy_game is None and game_in == 1:
-                message = f'이한영 강사님 {game_name} 종료'
+                message = f'이한영 강사님께서 {game_name}를 종료하셨습니다.'
                 slackapi_post(slack_url, message)
                 game_in = 0
 
@@ -98,7 +105,7 @@ def loop(count):
                 else:
                     play_time_message = f'플레이타임: {play_min}분'
 
-                message = "이한영 강사님 스팀 접속 종료\n" + play_time_message
+                message = "이한영 강사님께서 스팀 접속을 종료하였습니다.\n" + play_time_message
                 slackapi_post(slack_url, message)
                 log_in = 0
         time.sleep(5)
@@ -115,7 +122,7 @@ def index(request):
 
 
 def stats(request):
-    username = 'chetrucci'
+    username = 'kkoksara'
     context = stats_crawler(username)
     get_lhy_data('이한영', context)
     return render(request, 'stats.html', context)
@@ -150,7 +157,36 @@ def who_is_online(request):
         slackapi_post(slack_url, slack_message)
 
     if request.method == 'GET':
+        return HttpResponse('<h1>404: 잘못된 요청입니다</h1>')
+
+@csrf_exempt
+def progress(request):
+    if request.method == 'POST':
+        new_context = stats_crawler('kkoksara')
+        user = UserInfo.objects.get(name='이한영')
+        user_recent_data = user.record.last()
+        context = {'kill':user_recent_data.kill, 'damage':user_recent_data.damage}
+        if record_evaluate(new_context) > record_evaluate(context):
+            message = '강사님 실력이 일취월장하시네요!!'
+            UserRecord.objects.create(
+                userinfo=user,
+                rank=new_context['rank'],
+                rating=new_context['rating'],
+                kill=new_context['kill'],
+                mode=new_context['mode'],
+                damage=new_context['damage'])
+        elif record_evaluate(new_context) < record_evaluate(context):
+            message = '배그는 멘탈수련에 좋답니다 힘내세요!!'
+            UserRecord.objects.create(
+                userinfo=user,
+                rank=new_context['rank'],
+                rating=new_context['rating'],
+                kill=new_context['kill'],
+                mode=new_context['mode'],
+                damage=new_context['damage'])
+        else:
+            message = '가끔은 배그하면서 휴식을 취하세요 강사님 ㅠㅠ'
+        slackapi_post(slack_url, message)
+    else:
         return HttpResponse('<h1>404: 잘못된 요청</h1>')
-
-
 
