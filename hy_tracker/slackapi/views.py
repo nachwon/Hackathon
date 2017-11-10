@@ -16,7 +16,13 @@ def steamapi_status(key, steam_id):
     response = requests.get(api_url)
     data = json.loads(response.content)
     hy_status = data['response']['players'][0]['personastate']
-    return hy_status
+    hy_game = data['response']['players'][0].get('gameextrainfo')
+    print(hy_game)
+    steam_dict = {
+        "status": hy_status,
+        "current_game": hy_game
+    }
+    return steam_dict
 
 
 def slackapi_post(api_url, message):
@@ -26,18 +32,32 @@ def slackapi_post(api_url, message):
 
 def loop(count):
     log_in = 0
+    game_in = 0
     slack_url = 'https://hooks.slack.com/services/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'
     login_time = None
     logout_time = None
+    game_name = ''
     while count == 0:
-        hy_status = steamapi_status(key, steam_id)
+        steam_data = steamapi_status(key, steam_id)
+        hy_status = steam_data.get('status')
+        hy_game = steam_data.get('current_game')
         if hy_status == 1:
             if log_in == 0:
                 print(hy_status)
                 login_time = datetime.datetime.now()
-                message = "이한영 강사님 배틀그라운드 접속"
+                message = "이한영 강사님 스팀 접속"
                 slackapi_post(slack_url, message)
                 log_in = 1
+            if hy_game is not None and game_in == 0:
+                message = f'이한영 강사님 {hy_game} 시작'
+                slackapi_post(slack_url, message)
+                game_name = hy_game
+                game_in = 1
+            if hy_game is None and game_in == 1:
+                message = f'이한영 강사님 {game_name} 종료'
+                slackapi_post(slack_url, message)
+                game_in = 0
+
         elif hy_status == 0:
             if log_in == 1:
                 logout_time = datetime.datetime.now()
@@ -56,7 +76,7 @@ def loop(count):
                 else:
                     play_time_message = f'플레이타임: {play_min}분'
 
-                message = "이한영 강사님 배틀그라운드 접속 종료\n" + play_time_message
+                message = "이한영 강사님 스팀 접속 종료\n" + play_time_message
                 slackapi_post(slack_url, message)
                 log_in = 0
         time.sleep(5)
