@@ -15,7 +15,11 @@ from slackapi.models import UserInfo, UserRecord
 key = '032E05FE0635F1828FC936595667CABA'
 steam_id = '76561198005689159'
 slack_key = '9NmRQykyNVGdClzwIcfHaY72'
-slack_url = f'https://hooks.slack.com/services/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'
+# sejun
+# slack_url = f'https://hooks.slack.com/services/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'
+
+# wps-random
+slack_url = 'https://hooks.slack.com/services/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'
 
 
 def steamapi_status(key, steam_id):
