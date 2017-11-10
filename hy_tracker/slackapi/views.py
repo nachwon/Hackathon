@@ -176,7 +176,7 @@ def progress(request):
                 mode=new_context['mode'],
                 damage=new_context['damage'])
         elif record_evaluate(new_context) < record_evaluate(context):
-            message = '배그는 멘탈수련에 좋답니다 힘내세요!!'
+            message = '최근 성적이 좋지 않습니다. 샷빨 연습 좀 더 하세요.'
             UserRecord.objects.create(
                 userinfo=user,
                 rank=new_context['rank'],
@@ -185,7 +185,7 @@ def progress(request):
                 mode=new_context['mode'],
                 damage=new_context['damage'])
         else:
-            message = '가끔은 배그하면서 휴식을 취하세요 강사님 ㅠㅠ'
+            message = '최근에 게임을 하지 않았습니다. 가끔은 배그하면서 휴식을 취하세요 강사님 ㅠㅠ'
         slackapi_post(slack_url, message)
     else:
         return HttpResponse('<h1>404: 잘못된 요청</h1>')
