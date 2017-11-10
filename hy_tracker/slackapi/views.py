@@ -2,12 +2,15 @@ import datetime
 import requests
 import time
 
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
 import json
 
 from django.views.decorators.csrf import csrf_exempt
 
 from slackapi.crawler import stats_crawler
+from slackapi.forms import UserInfoForm
+from slackapi.models import UserInfo
 
 key = '032E05FE0635F1828FC936595667CABA'
 steam_id = '76561198005689159'
@@ -106,3 +109,30 @@ def current_players(request):
 
         message = f'현재 플레이어 목록'
         slackapi_post(slack_url, message)
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserInfoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = UserInfoForm()
+
+    return render(request, 'register.html', {'form': form})
+
+
+def who_is_online(request):
+    login_users = []
+
+    users = UserInfo.objects.all()
+    for user in users:
+        data = steamapi_status(key, user.steamId64)
+        if data.get('status') == 1:
+            login_users.append(user.name)
+    if login_users:
+        message = ', '.join(login_users)
+        return HttpResponse(f'지금 로그인하시면 {message}님과 함께하실 수 있습니다.')
+    else:
+        return HttpResponse('혼자 즐길 타이밍입니다.')

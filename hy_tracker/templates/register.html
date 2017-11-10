@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div class="container">
+    <a href="https://steamid.io/" target="_blank">이곳에서 당신의 SteamId64를 확인하세요</a>
+    <form action="{% url 'register' %}" method="post" class="form-btn">
+        {% csrf_token %}
+        {{ form }}
+            <input class="btn btn-primary" type="submit" value="등록">
+    </form>
+</div>
+</body>
+</html>
