@@ -1,0 +1,28 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="{% static 'favicon.jpg' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <title>FC_Chickens</title>
+</head>
+<body class="register">
+<div class="container">
+
+    <div class="register-wrapper"></div>
+    <span class="register-title">FC-Chickens 등록</span>
+    <form action="{% url 'register' %}" method="post" class="register-form">
+        {% csrf_token %}
+        {{ form }}
+        <a class="get-steamId" href="https://steamid.io/" target="_blank">SteamId64 확인하기</a>
+        <input class="btn btn-primary register-btn" type="submit" value="등록">
+    </form>
+</div>
+</body>
+</html>

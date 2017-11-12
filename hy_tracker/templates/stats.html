@@ -1,0 +1,30 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="{% static 'favicon.jpg' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <title>강사님 전적</title>
+</head>
+<body class="stats">
+<div class="stats-wrapper">
+    <h1 class="stats-title">강사님 최근 전적</h1>
+
+    <div class="stat-body">
+        <ul>
+            <li>게임 모드 <span>{{ mode }}</span></li>
+            <li>랭킹 <span>{{ rank }}</span></li>
+            <li>레이팅 <span>{{ rating }}</span></li>
+            <li>킬 <span>{{ kill }}</span></li>
+            <li>딜량 <span>{{ damage }}</span></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

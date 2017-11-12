@@ -1,0 +1,93 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="{% static 'favicon.jpg' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <style>
+        .spinner {
+  width: 40px;
+  height: 40px;
+
+  position: relative;
+  margin: 30px auto;
+}
+
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #333;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+  animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}
+    </style>
+
+    <title>Watching You</title>
+</head>
+<body class="index">
+
+<div class="container">
+    <div class="header">
+        <img class="tracker-title" src="{% static 'Logomakr_1Ftq1r.png' %}" alt="">
+    </div>
+    <div class="body">
+        <p class="tracker-version">HY_Tracker Version 1.0.1</p>
+        <div class="spinner" id="tracking-image" style="display: none">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+        <form action="" method="post" class="form-btn">
+            {% csrf_token %}
+            <input type="hidden" name="switch" value="on">
+            <input class="tracker-btn btn btn-primary" type="submit" value="강사님 감시하기" onclick="document.getElementById('tracking-image').style='display: block'">
+        </form>
+    </div>
+
+    <div class="features">
+        <a href="{% url 'stats' %}">
+            <button class="stats-btn1 btn btn-default">강사님 전적보기</button>
+        </a>
+        <a href="{% url 'register' %}">
+            <button class="stats-btn2 btn btn-default">FC_Chickens 참여</button>
+        </a>
+    </div>
+    <div class="logo">
+        <img class="pubg-title" src="https://btlog.me/public/img/pubg_title.png">
+        <img class="steam-logo" src="https://www.dualshockers.com/wp-content/uploads/2017/10/Steam-Logo.png" alt="">
+        <img src="https://cdn.worldvectorlogo.com/logos/slack.svg" alt="" class="slack-logo">
+    </div>
+</div>
+</body>
+</html>
