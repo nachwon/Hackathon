@@ -15,7 +15,12 @@ from slackapi.models import UserInfo, UserRecord
 key = '032E05FE0635F1828FC936595667CABA'
 steam_id = '76561198005689159'
 slack_key = '9NmRQykyNVGdClzwIcfHaY72'
-slack_url = f'https://hooks.slack.com/services/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'
+track_id = 'chetrucci'
+# sejun
+# slack_url = f'https://hooks.slack.com/services/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'
+
+# wps-random
+slack_url = 'https://hooks.slack.com/services/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'
 
 
 def steamapi_status(key, steam_id):
@@ -122,7 +127,7 @@ def index(request):
 
 
 def stats(request):
-    username = 'kkoksara'
+    username = track_id
     context = stats_crawler(username)
     get_lhy_data('이한영', context)
     return render(request, 'stats.html', context)
@@ -154,39 +159,27 @@ def who_is_online(request):
             slack_message = f'지금 로그인하시면 {message}님과 함께하실 수 있습니다.'
         else:
             slack_message = '혼자 즐길 타이밍입니다.'
-        slackapi_post(slack_url, slack_message)
-
+        # slackapi_post(slack_url, slack_message)
+        return HttpResponse(slack_message)
     if request.method == 'GET':
         return HttpResponse('<h1>404: 잘못된 요청입니다</h1>')
 
 @csrf_exempt
 def progress(request):
     if request.method == 'POST':
-        new_context = stats_crawler('kkoksara')
         user = UserInfo.objects.get(name='이한영')
-        user_recent_data = user.record.last()
-        context = {'kill':user_recent_data.kill, 'damage':user_recent_data.damage}
-        if record_evaluate(new_context) > record_evaluate(context):
-            message = '강사님 실력이 일취월장하시네요!!'
-            UserRecord.objects.create(
-                userinfo=user,
-                rank=new_context['rank'],
-                rating=new_context['rating'],
-                kill=new_context['kill'],
-                mode=new_context['mode'],
-                damage=new_context['damage'])
-        elif record_evaluate(new_context) < record_evaluate(context):
+        new_context = user.record.last()
+        user_recent_data = user.record.get(pk=new_context.pk-1)
+        print(f'test: {new_context}, {user_recent_data}')
+        if new_context.kill > user_recent_data.kill and new_context.damage > user_recent_data.damage:
+            kill_diff = new_context.kill - user_recent_data.kill
+            message = f'이전 게임 보다 {kill_diff}킬 더 하셨어요! 강사님 실력이 일취월장하시네요!!'
+
+        elif new_context.kill < user_recent_data.kill and new_context.damage < user_recent_data.damage:
             message = '최근 성적이 좋지 않습니다. 샷빨 연습 좀 더 하세요.'
-            UserRecord.objects.create(
-                userinfo=user,
-                rank=new_context['rank'],
-                rating=new_context['rating'],
-                kill=new_context['kill'],
-                mode=new_context['mode'],
-                damage=new_context['damage'])
-        else:
-            message = '최근에 게임을 하지 않았습니다. 가끔은 배그하면서 휴식을 취하세요 강사님 ㅠㅠ'
-        slackapi_post(slack_url, message)
+
+        # slackapi_post(slack_url, message)
+        return HttpResponse(message)
     else:
         return HttpResponse('<h1>404: 잘못된 요청</h1>')
 
